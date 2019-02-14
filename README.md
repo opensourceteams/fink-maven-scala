@@ -17,5 +17,5 @@ mvn archetype:generate \
 
 ```
 
-### Java 版Flink WordCount单词统计
-- https://github.com/opensourceteams/fink-maven-java/blob/master/md/wordCount-java.md
+### scala 版Flink WordCount单词统计
+- https://github.com/opensourceteams/fink-maven-scala/blob/master/md/wordCount-scala.md

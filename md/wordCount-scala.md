@@ -1,3 +1,19 @@
+# Flink worldCount 体验Scala版本
+
+## 源码
+- github: https://github.com/opensourceteams/fink-maven-scala
+
+
+## 描述
+- nc命令发送数据，Flink 接收数据，并对接数据统计单词总数
+- 一共分为四步
+ - 按行打印输入数据
+ - 拆分单词
+ - 拆分单词为(Key,value)
+ - 相同单词进行统计个数
+
+## pom.xml
+```
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -233,3 +249,144 @@
 	</profiles>
 
 </project>
+
+
+```
+## 按行打印输入数据
+
+### nc 命令，输入数据
+- 在本地端口1234开启服务
+```
+nc -l 1234
+```
+
+### 一、按行打印输入数据Java
+```
+package com.module.flink.example.worldcount.n_001_打印输入数据
+
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+
+
+object Run {
+
+  def main(args: Array[String]): Unit = {
+
+    val port = 1234
+    // get the execution environment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+
+    // get input data by connecting to the socket
+    val text = env.socketTextStream("localhost", port, '\n')
+
+    text.print().setParallelism(1)
+
+    env.execute("打印输入数据")
+
+  }
+
+}
+
+```
+
+### 二、拆分单词
+```
+package com.module.flink.example.worldcount.n_002_折分单词
+
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+
+
+object Run {
+
+  def main(args: Array[String]): Unit = {
+
+    val port = 1234
+    // get the execution environment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+
+    // get input data by connecting to the socket
+    val text = env.socketTextStream("localhost", port, '\n')
+
+
+    import org.apache.flink.streaming.api.scala._
+    val textFlatMap = text.flatMap { w => w.split("\\s") }
+
+    textFlatMap.print().setParallelism(1)
+
+    env.execute("打印输入数据")
+
+  }
+
+}
+
+```
+### 三、拆分单词为(Key,value)
+```
+package com.module.flink.example.worldcount.n_003_拆分单词为KeyValue
+
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+
+
+object Run {
+
+  def main(args: Array[String]): Unit = {
+
+    val port = 1234
+    // get the execution environment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+
+    // get input data by connecting to the socket
+    val text = env.socketTextStream("localhost", port, '\n')
+
+
+    import org.apache.flink.streaming.api.scala._
+    val textResult = text.flatMap( w => w.split("\\s") ).map( w => (w,1))
+
+    textResult.print().setParallelism(1)
+
+    env.execute("打印输入数据")
+
+  }
+
+}
+
+```
+### 四、相同单词进行统计个数
+- Run
+
+```
+package com.module.flink.example.worldcount.n_004_相同单词统计
+
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+
+
+object Run {
+
+  def main(args: Array[String]): Unit = {
+
+    val port = 1234
+    // get the execution environment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+
+    // get input data by connecting to the socket
+    val text = env.socketTextStream("localhost", port, '\n')
+
+
+    import org.apache.flink.streaming.api.scala._
+    val textResult = text.flatMap( w => w.split("\\s") ).map( w => WordWithCount(w,1))
+      .keyBy("word").reduce((a,b) => WordWithCount(a.word ,a.count + b.count )  )
+
+    textResult.print().setParallelism(1)
+
+    env.execute("打印输入数据")
+
+  }
+
+
+  // Data type for words with count
+  case class WordWithCount(word: String, count: Long)
+
+}
+
+```
+
+end
