@@ -16,6 +16,7 @@ object Run {
 
 
     import org.apache.flink.streaming.api.scala._
+
     val textResult = text.flatMap( w => w.split("\\s") ).map( w => (w,1))
 
     textResult.print().setParallelism(1)
