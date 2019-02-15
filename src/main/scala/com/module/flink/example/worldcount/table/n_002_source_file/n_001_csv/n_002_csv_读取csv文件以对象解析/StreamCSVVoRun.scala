@@ -1,13 +1,12 @@
-package com.module.flink.example.worldcount.table.n_002_source_file.n_001_csv
+package com.module.flink.example.worldcount.table.n_002_source_file.n_001_csv.n_002_csv_读取csv文件以对象解析
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.{TableEnvironment, Types}
 import org.apache.flink.table.sources.CsvTableSource
-import org.apache.flink.types.Row
 
-object StreamCSVPoRun {
+object StreamCSVVoRun {
 
   def main(args: Array[String]): Unit = {
 
@@ -15,6 +14,7 @@ object StreamCSVPoRun {
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val tEnv = TableEnvironment.getTableEnvironment(env)
+
 
 
     val customerSource = CsvTableSource.builder()
