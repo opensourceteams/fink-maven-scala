@@ -1,8 +1,7 @@
-package com.module.flink.example.worldcount.table.n_001_source_seq.n_001_streamSQL
+package com.module.flink.example.worldcount.table.datastream.n_002_sql
 
-
-import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.table.api.scala._
 
 object Run {

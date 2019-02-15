@@ -1,4 +1,4 @@
-package com.module.flink.example.worldcount.table.datastream.n_001_csv.n_003_csv_输出数据到csv文件
+package com.module.flink.example.worldcount.table.datastream.n_001_source_file.n_001_csv.n_002_csv_读取csv文件以对象解析
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
@@ -36,7 +36,7 @@ object StreamCSVVoRun {
     // convert it to a data stream
     val ds = table.toAppendStream[Student]
 
-    ds.writeAsCsv("src/main/resources/dataoutput/csv/user")
+    ds.print()
     env.execute()
 
 

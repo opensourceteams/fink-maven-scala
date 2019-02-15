@@ -1,4 +1,4 @@
-package com.module.flink.example.worldcount.table.n_002_source_file.n_001_csv.n_003_csv_输出数据到csv文件
+package com.module.flink.example.worldcount.table.datastream.n_001_source_file.n_001_csv.n_003_csv_输出数据到csv文件
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
