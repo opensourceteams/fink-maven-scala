@@ -1,6 +1,6 @@
-package com.module.flink.example.worldcount.n_001_打印输入数据
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_003_拆分单词为KeyValue
 
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 
 object Run {
@@ -14,7 +14,12 @@ object Run {
     // get input data by connecting to the socket
     val text = env.socketTextStream("localhost", port, '\n')
 
-    text.print().setParallelism(1)
+
+    import org.apache.flink.streaming.api.scala._
+
+    val textResult = text.flatMap( w => w.split("\\s") ).map( w => (w,1))
+
+    textResult.print().setParallelism(1)
 
     env.execute("打印输入数据")
 

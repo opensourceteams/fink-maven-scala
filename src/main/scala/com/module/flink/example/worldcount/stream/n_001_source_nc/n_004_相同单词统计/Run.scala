@@ -1,4 +1,4 @@
-package com.module.flink.example.worldcount.n_002_折分单词
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_004_相同单词统计
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
@@ -16,13 +16,17 @@ object Run {
 
 
     import org.apache.flink.streaming.api.scala._
-    // \s 匹配任何空白字符,包括空格、制表符、换页符等等
-    val textFlatMap = text.flatMap { w => w.split("\\s") }
+    val textResult = text.flatMap( w => w.split("\\s") ).map( w => WordWithCount(w,1))
+      .keyBy("word").reduce((a,b) => WordWithCount(a.word ,a.count + b.count )  )
 
-    textFlatMap.print().setParallelism(1)
+    textResult.print().setParallelism(1)
 
     env.execute("打印输入数据")
 
   }
+
+
+  // Data type for words with count
+  case class WordWithCount(word: String, count: Long)
 
 }

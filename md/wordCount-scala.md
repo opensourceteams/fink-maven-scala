@@ -262,7 +262,7 @@ nc -l 1234
 
 ### 一、按行打印输入数据Java
 ```
-package com.module.flink.example.worldcount.n_001_打印输入数据
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_001_打印输入数据
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 
@@ -290,7 +290,7 @@ object Run {
 
 ### 二、拆分单词
 ```
-package com.module.flink.example.worldcount.n_002_折分单词
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_002_折分单词
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
@@ -321,7 +321,7 @@ object Run {
 ```
 ### 三、拆分单词为(Key,value)
 ```
-package com.module.flink.example.worldcount.n_003_拆分单词为KeyValue
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_003_拆分单词为KeyValue
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
@@ -354,7 +354,7 @@ object Run {
 - Run
 
 ```
-package com.module.flink.example.worldcount.n_004_相同单词统计
+package com.module.flink.example.worldcount.stream.n_001_source_nc.n_004_相同单词统计
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
