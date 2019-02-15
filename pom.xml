@@ -62,19 +62,28 @@
 		</dependency>
 
 
-
-
-	<!--	<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-clients_2.11</artifactId>
-			<version>${flink.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-wikiedits_2.11</artifactId>
+			<artifactId>flink-table_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
+			<!--<scope>provided</scope>-->
 		</dependency>
--->
+
+
+
+
+
+		<!--	<dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-clients_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-wikiedits_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+    -->
 
 
 

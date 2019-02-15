@@ -1,23 +1,21 @@
 package com.module.flink.example.worldcount.batch.n_001_source_file.n_001_worldCount_读取文件.n_001_读取文件内容
 
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.api.scala.ExecutionEnvironment
 
 object Run {
 
   def main(args: Array[String]): Unit = {
 
     // get the execution environment
-    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
 
-    val text = env.readTextFile("/opt/n_001_workspaces/bigdata/flink/flink-maven-scala/src/main/resources/data/a.txt")
+    val text = env.readTextFile("src/main/resources/data/a.txt")
 
 
+    val result = text.collect()
 
-    text.print().setParallelism(1)
+    println(s"打印结果:${result.mkString}" )
 
-    env.execute("文件单词统计作业")
-    println("结束")
 
   }
 
