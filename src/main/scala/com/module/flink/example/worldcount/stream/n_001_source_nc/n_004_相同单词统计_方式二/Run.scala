@@ -3,7 +3,9 @@ package com.module.flink.example.worldcount.stream.n_001_source_nc.n_004_相同�
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.windowing.time.Time
 
-
+/**
+  * nc -lk 1234  输入数据
+  */
 object Run {
 
   def main(args: Array[String]): Unit = {
@@ -13,11 +15,11 @@ object Run {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
     // get input data by connecting to the socket
-    val text = env.socketTextStream("localhost", port, '\n')
+    val dataStream = env.socketTextStream("localhost", port, '\n')
 
 
     import org.apache.flink.streaming.api.scala._
-    val textResult = text.flatMap( w => w.split("\\s") ).map( w => WordWithCount(w,1))
+    val textResult = dataStream.flatMap( w => w.split("\\s") ).map( w => WordWithCount(w,1))
       .keyBy("word")
       /**
         * 每5秒刷新一次，相当于重新开始计数，
